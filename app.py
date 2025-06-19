@@ -1,7 +1,6 @@
 import streamlit as st
 import tensorflow as tf
 import tensorflow_hub as hub
-import cv2
 from PIL import Image
 import numpy as np
 import io
@@ -37,7 +36,12 @@ with style_col:
 
 with content_col:
     st.subheader("Content Image")
-    content_image = st.file_uploader("Upload the content image", type=['jpg', 'png'])
+    content_image1 = st.camera_input("Take a photo")
+    content_image2 = st.file_uploader("Upload the content image", type=['jpg', 'png'])
+    if content_image1 is not None:
+        content_image = content_image1
+    else:
+        content_image = content_image2
     if content_image:
         content = Image.open(content_image)
         st.image(content, caption="Content", use_container_width = True)
